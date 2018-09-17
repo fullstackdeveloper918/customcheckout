@@ -1,7 +1,6 @@
 <?php
-$a="dummy";
-echo $a;
-/*require_once __DIR__ . '/vendor/autoload.php';
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Bigcommerce\Api\Client as Bigcommerce;
 use Firebase\JWT\JWT;
@@ -87,7 +86,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * GET /storefront/{storeHash}/customers/{jwtToken}/recently_purchased.html
  * Fetches the "Recently Purchased Products" HTML block and displays it in the frontend.
  */
-/*$app->get('/storefront/{storeHash}/customers/{jwtToken}/recently_purchased.html', function ($storeHash, $jwtToken) use ($app) {
+$app->get('/storefront/{storeHash}/customers/{jwtToken}/recently_purchased.html', function ($storeHash, $jwtToken) use ($app) {
 	$headers = ['Access-Control-Allow-Origin' => '*'];
 	try {
 		// First let's get the customer's ID from the token and confirm that they're who they say they are.
@@ -115,7 +114,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * @param string $customerId
  * @return string HTML content to display in the storefront
  */
-/*function getRecentlyPurchasedProductsHtml($storeHash, $customerId)
+function getRecentlyPurchasedProductsHtml($storeHash, $customerId)
 {
 	$redis = new Credis_Client('localhost');
 	$cacheKey = "stores/{$storeHash}/customers/{$customerId}/recently_purchased_products.html";
@@ -150,7 +149,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * @param string $customerId ID of the customer that we want to retrieve the recently purchased products list for.
  * @return array<Bigcommerce\Resources\Product> An array of products from the BigCommerce API
  */
-/*function getRecentlyPurchasedProducts($customerId)
+function getRecentlyPurchasedProducts($customerId)
 {
 	$products = [];
 
@@ -168,7 +167,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * and the store's hash as provided.
  * @param string $storeHash Store hash to point the BigCommece API to for outgoing requests.
  */
-/*function configureBCApi($storeHash)
+function configureBCApi($storeHash)
 {
 	Bigcommerce::configure(array(
 		'client_id' => clientId(),
@@ -181,7 +180,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * @param string $storeHash store's hash that we want the access token for
  * @return string the oauth Access (aka Auth) Token to use in API requests.
  */
-/*function getAuthToken($storeHash)
+function getAuthToken($storeHash)
 {
 	$redis = new Credis_Client('localhost');
 	$authData = json_decode($redis->get("stores/{$storeHash}/auth"));
@@ -192,7 +191,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * @param string $jwtToken	customer's JWT token sent from the storefront.
  * @return string customer's ID decoded and verified
  */
-/*function getCustomerIdFromToken($jwtToken)
+function getCustomerIdFromToken($jwtToken)
 {
 	$signedData = JWT::decode($jwtToken, clientSecret(), array('HS256', 'HS384', 'HS512', 'RS256'));
 	return $signedData->customer->id;
@@ -203,7 +202,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
  * @param string $signedRequest Pull signed data to verify it.
  * @return array|null null if bad request, array of data otherwise
  */
-/*function verifySignedRequest($signedRequest)
+function verifySignedRequest($signedRequest)
 {
 	list($encodedData, $encodedSignature) = explode('.', $signedRequest, 2);
 
@@ -224,7 +223,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
 /**
  * @return string Get the app's client ID from the environment vars
  */
-/*function clientId()
+function clientId()
 {
 	$clientId = getenv('BC_CLIENT_ID');
 	return $clientId ?: '';
@@ -233,7 +232,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
 /**
  * @return string Get the app's client secret from the environment vars
  */
-/*function clientSecret()
+function clientSecret()
 {
 	$clientSecret = getenv('BC_CLIENT_SECRET');
 	return $clientSecret ?: '';
@@ -242,7 +241,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
 /**
  * @return string Get the callback URL from the environment vars
  */
-/*function callbackUrl()
+function callbackUrl()
 {
 	$callbackUrl = getenv('BC_CALLBACK_URL');
 	return $callbackUrl ?: '';
@@ -251,7 +250,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
 /**
  * @return string Get auth service URL from the environment vars
  */
-/*function bcAuthService()
+function bcAuthService()
 {
 	$bcAuthService = getenv('BC_AUTH_SERVICE');
 	return $bcAuthService ?: '';
@@ -262,4 +261,4 @@ function getUserKey($storeHash, $email)
 	return "kitty.php:$storeHash:$email";
 }
 
-/*$app->run();
+$app->run();
